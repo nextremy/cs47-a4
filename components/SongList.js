@@ -4,7 +4,6 @@ import { colors } from "../assets/Themes/colors";
 import Song from "./Song";
 
 export default function SongList(props) {
-  console.log(props.tracks[0].album.images[2].url);
   return (
     <View style={styles.container}>
       <View style={styles.titleContainer}>
