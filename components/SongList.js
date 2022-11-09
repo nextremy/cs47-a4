@@ -14,11 +14,14 @@ export default function SongList(props) {
         data={props.tracks}
         renderItem={({ item }) => (
           <Song
+            navigation={props.navigation}
             image={item.album.images[0].url}
             name={item.name}
             artists={item.album.artists.map((artist) => artist.name)}
             album={item.album.name}
             duration={item.duration_ms}
+            previewURL={item.preview_url}
+            externalURL={item.external_urls.spotify}
           />
         )}
       />

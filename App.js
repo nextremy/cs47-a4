@@ -1,17 +1,52 @@
-import { SafeAreaView, StyleSheet, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { SafeAreaView, StyleSheet } from "react-native";
 import { Themes } from "./assets/Themes";
+import SongDetail from "./components/SongDetail";
 import SongList from "./components/SongList";
+import SongPreview from "./components/SongPreview";
 import SpotifyAuthButton from "./components/SpotifyAuthButton";
 import { useSpotifyAuth } from "./utils";
 
+const Stack = createStackNavigator();
+
 export default function App() {
-  // Pass in true to useSpotifyAuth to use the album ID (in env.js) instead of top tracks
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SongPreview"
+          component={SongPreview}
+          options={{
+            headerStyle: { backgroundColor: Themes.colors.background },
+            headerTintColor: Themes.colors.white,
+          }}
+        />
+        <Stack.Screen
+          name="SongDetail"
+          component={SongDetail}
+          options={{
+            headerStyle: { backgroundColor: Themes.colors.background },
+            headerTintColor: Themes.colors.white,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+function Home(props) {
   const { token, tracks, getSpotifyAuth } = useSpotifyAuth();
 
   return (
     <SafeAreaView style={styles.container}>
       {token ? (
-        <SongList tracks={tracks} />
+        <SongList tracks={tracks} navigation={props.navigation} />
       ) : (
         <SpotifyAuthButton authFunction={getSpotifyAuth} />
       )}

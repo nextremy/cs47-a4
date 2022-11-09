@@ -5,9 +5,25 @@ import millisToMinutesAndSeconds from "../utils/millisToMinutesAndSeconds";
 
 export default function Song(props) {
   return (
-    <View style={styles.container}>
-      <Pressable style={styles.playButton}>
-        <Ionicons name="play-circle" size={20} color={Themes.colors.spotify} />
+    <Pressable
+      onPress={(event) => {
+        event.stopPropagation();
+        props.navigation.navigate("SongDetail", {
+          url: { externalURL: props.externalURL },
+        });
+      }}
+      style={styles.container}
+    >
+      <Pressable
+        onPress={(event) => {
+          event.stopPropagation();
+          props.navigation.navigate("SongPreview", {
+            url: { previewURL: props.previewURL },
+          });
+        }}
+        style={styles.playButton}
+      >
+        <Ionicons name="play-circle" size={24} color={Themes.colors.spotify} />
       </Pressable>
       <Image source={{ uri: props.image }} style={styles.image} />
       <View style={styles.nameAndArtistContainer}>
@@ -24,7 +40,7 @@ export default function Song(props) {
       <Text style={styles.durationText}>
         {millisToMinutesAndSeconds(props.duration)}
       </Text>
-    </View>
+    </Pressable>
   );
 }
 
