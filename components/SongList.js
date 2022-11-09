@@ -12,9 +12,8 @@ export default function SongList(props) {
       </View>
       <FlatList
         data={props.tracks}
-        renderItem={({ index, item }) => (
+        renderItem={({ item }) => (
           <Song
-            index={index}
             image={item.album.images[0].url}
             name={item.name}
             artists={item.album.artists.map((artist) => artist.name)}

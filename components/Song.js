@@ -1,11 +1,14 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Themes } from "../assets/Themes";
 import millisToMinutesAndSeconds from "../utils/millisToMinutesAndSeconds";
 
 export default function Song(props) {
   return (
     <View style={styles.container}>
-      <Text style={styles.indexText}>{props.index + 1}</Text>
+      <Pressable style={styles.playButton}>
+        <Ionicons name="play-circle" size={20} color={Themes.colors.spotify} />
+      </Pressable>
       <Image source={{ uri: props.image }} style={styles.image} />
       <View style={styles.nameAndArtistContainer}>
         <Text numberOfLines={1} style={styles.nameText}>
@@ -31,10 +34,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     paddingVertical: 8,
   },
-  indexText: {
-    color: Themes.colors.gray,
+  playButton: {
+    paddingHorizontal: 16,
     textAlign: "center",
-    width: "10%",
   },
   image: {
     height: 64,
